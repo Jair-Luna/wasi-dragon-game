@@ -10,7 +10,7 @@ namespace HungerMiniGame
         [SerializeField] private Transform[] spawnPoints;
 
         private HungerMiniGame hungerMiniGame;
-        private const int FruitToSpawn = 10;
+        private const int PlayToSpawn = 10;
 
         private void Start()
         {
@@ -31,9 +31,9 @@ namespace HungerMiniGame
 
             yield return new WaitForSeconds(startDelay * 2);
 
-            for (var i = 0; i < FruitToSpawn; i++)
+            for (var i = 0; i < PlayToSpawn; i++)
             {
-                SpawnFruit();
+                SpawnPlay();
                 yield return new WaitForSeconds(Random.Range(minDelay, maxDelay));
             }
 
@@ -42,7 +42,7 @@ namespace HungerMiniGame
             Destroy(gameObject);
         }
 
-        private void SpawnFruit()
+        private void SpawnPlay()
         {
             var spawnIndex = Random.Range(0, spawnPoints.Length);
             var spawnPoint = spawnPoints[spawnIndex];

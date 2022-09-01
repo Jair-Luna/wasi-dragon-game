@@ -16,6 +16,8 @@ TagManager:
   - EnergyMiniGame
   - Eye
   - Blade
+  - HearthMiniGame
+  - ThirsMiniGame
   layers:
   - Default
   - TransparentFX

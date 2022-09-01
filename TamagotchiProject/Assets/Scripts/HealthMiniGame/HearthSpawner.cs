@@ -6,7 +6,7 @@ namespace HealthMiniGame
 {
     public class HearthSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject ghostPrefab;
+        [SerializeField] private GameObject hearthPrefab;
         [SerializeField] private GameObject preventNightmaresPrefab;
 
         private const int GhostsToSpawn = 5;
@@ -44,7 +44,7 @@ namespace HealthMiniGame
         {
             var angle = Random.Range(0, 360);
             var spawnPosition = GetSpawnPosition(center, radius, angle);
-            Instantiate(ghostPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(hearthPrefab, spawnPosition, Quaternion.identity);
         }
 
         private Vector3 GetSpawnPosition(Vector3 center, float radius, float angle)

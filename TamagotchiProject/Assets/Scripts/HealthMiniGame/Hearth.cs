@@ -4,7 +4,7 @@ using UnityEngine;
 using World;
 
 
-namespace HealthMiniGame
+namespace HearthMiniGame
 {
     public class Hearth : MonoBehaviour
     {
@@ -13,11 +13,11 @@ namespace HealthMiniGame
         [SerializeField] private ParticleSystem ghostTrail;
         [SerializeField] private ParticleSystem ghostRemains;
         [SerializeField] private GameObject nightBonusPrefab;
-        [SerializeField] private GameObject minus10EnergyPrefab;
-        [SerializeField] private GameObject plus10EnergyPrefab;
-        [SerializeField] private GameObject plus20EnergyPrefab;
+        [SerializeField] private GameObject minus10HealthPrefab;
+        [SerializeField] private GameObject plus10HealthPrefab;
+        [SerializeField] private GameObject plus20HealthPrefab;
 
-        private HealthMiniGame healthMiniGame;
+        private HearthMiniGame hearthMiniGame;
         private StatsController statsController;
         private Transform targetTransform;
         private Horizon horizon;
@@ -30,7 +30,7 @@ namespace HealthMiniGame
         private void Start()
         {
             var targetGameObject = GameObject.FindWithTag("Player");
-            healthMiniGame = GameObject.FindWithTag("EnergyMiniGame").GetComponent<HealthMiniGame>();
+            hearthMiniGame = GameObject.FindWithTag("HearthMiniGame").GetComponent<HearthMiniGame>();
             statsController = GameObject.FindWithTag("Stats").GetComponent<StatsController>();
             horizon = GameObject.FindWithTag("Horizon").GetComponent<Horizon>();
             targetTransform = targetGameObject.GetComponent<Transform>();
@@ -61,7 +61,7 @@ namespace HealthMiniGame
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                LoseEnergy();
+                LoseHealth();
                 ghostAnimator.SetTrigger("GhostAttack");
                 StartCoroutine(DestroyGhost());
             }
@@ -71,34 +71,34 @@ namespace HealthMiniGame
         {
             if (!GameController.GamePaused)
             {
-                GainEnergy();
+                GainHealth();
                 ghostAnimator.SetTrigger("GhostDeath");
                 StartCoroutine(DestroyGhost());
                 ghostRemains.Emit(Random.Range(5, 11));
             }
         }
 
-        private void GainEnergy()
+        private void GainHealth()
         {
             var position = transform.position;
 
             if (horizon.IsNight())
             {
-                statsController.ChangeStats(StatsController.Stats.Energy, 20);
-                TextPopup(plus20EnergyPrefab, position);
+                statsController.ChangeStats(StatsController.Stats.Health, 20);
+                TextPopup(plus20HealthPrefab, position);
                 StartCoroutine(ShowNightBonus(position));
             }
             else
             {
-                statsController.ChangeStats(StatsController.Stats.Energy, 10);
-                TextPopup(plus10EnergyPrefab, position);
+                statsController.ChangeStats(StatsController.Stats.Health, 10);
+                TextPopup(plus10HealthPrefab, position);
             }
         }
 
-        private void LoseEnergy()
+        private void LoseHealth()
         {
-            statsController.ChangeStats(StatsController.Stats.Energy, -10);
-            TextPopup(minus10EnergyPrefab, transform.position);
+            statsController.ChangeStats(StatsController.Stats.Health, -10);
+            TextPopup(minus10HealthPrefab, transform.position);
         }
 
         private IEnumerator ShowNightBonus(Vector3 position)
@@ -117,7 +117,7 @@ namespace HealthMiniGame
 
             if (GhostCounter == 0)
             {
-                healthMiniGame.StopEnergyMiniGame();
+                hearthMiniGame.StopHearthMiniGame();
             }
             Destroy(gameObject);
         }
