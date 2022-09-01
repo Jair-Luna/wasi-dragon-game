@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HealthMiniGame
+namespace ThirstMiniGame
 {
-    public class HearthSpawner : MonoBehaviour
+    public class ThirsSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject hearthPrefab;
+        [SerializeField] private GameObject thirsPrefab;
         [SerializeField] private GameObject preventNightmaresPrefab;
 
         private const int GhostsToSpawn = 5;
@@ -44,7 +44,7 @@ namespace HealthMiniGame
         {
             var angle = Random.Range(0, 360);
             var spawnPosition = GetSpawnPosition(center, radius, angle);
-            Instantiate(hearthPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(thirsPrefab, spawnPosition, Quaternion.identity);
         }
 
         private Vector3 GetSpawnPosition(Vector3 center, float radius, float angle)

@@ -4,20 +4,20 @@ using UnityEngine;
 using World;
 
 
-namespace HearthMiniGame
+namespace ThirsMiniGame
 {
-    public class Hearth : MonoBehaviour
+    public class Thirs : MonoBehaviour
     {
         public static int GhostCounter = 5;
 
         [SerializeField] private ParticleSystem ghostTrail;
         [SerializeField] private ParticleSystem ghostRemains;
         [SerializeField] private GameObject nightBonusPrefab;
-        [SerializeField] private GameObject minus10HealthPrefab;
-        [SerializeField] private GameObject plus10HealthPrefab;
-        [SerializeField] private GameObject plus20HealthPrefab;
+        [SerializeField] private GameObject minus10ThirstPrefab;
+        [SerializeField] private GameObject plus10ThirstPrefab;
+        [SerializeField] private GameObject plus20ThirstPrefab;
 
-        private HearthMiniGame hearthMiniGame;
+        private ThirsMiniGame thirsMiniGame;
         private StatsController statsController;
         private Transform targetTransform;
         private Horizon horizon;
@@ -30,7 +30,7 @@ namespace HearthMiniGame
         private void Start()
         {
             var targetGameObject = GameObject.FindWithTag("Player");
-            hearthMiniGame = GameObject.FindWithTag("HearthMiniGame").GetComponent<HearthMiniGame>();
+            thirsMiniGame = GameObject.FindWithTag("ThirsMiniGame").GetComponent<ThirsMiniGame>();
             statsController = GameObject.FindWithTag("Stats").GetComponent<StatsController>();
             horizon = GameObject.FindWithTag("Horizon").GetComponent<Horizon>();
             targetTransform = targetGameObject.GetComponent<Transform>();
@@ -61,7 +61,7 @@ namespace HearthMiniGame
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                LoseHealth();
+                LoseThirst();
                 ghostAnimator.SetTrigger("GhostAttack");
                 StartCoroutine(DestroyGhost());
             }
@@ -71,34 +71,34 @@ namespace HearthMiniGame
         {
             if (!GameController.GamePaused)
             {
-                GainHealth();
+                GainThirst();
                 ghostAnimator.SetTrigger("GhostDeath");
                 StartCoroutine(DestroyGhost());
                 ghostRemains.Emit(Random.Range(5, 11));
             }
         }
 
-        private void GainHealth()
+        private void GainThirst()
         {
             var position = transform.position;
 
             if (horizon.IsNight())
             {
-                statsController.ChangeStats(StatsController.Stats.Health, 20);
-                TextPopup(plus20HealthPrefab, position);
+                statsController.ChangeStats(StatsController.Stats.Thirst, 20);
+                TextPopup(plus20ThirstPrefab, position);
                 StartCoroutine(ShowNightBonus(position));
             }
             else
             {
-                statsController.ChangeStats(StatsController.Stats.Health, 10);
-                TextPopup(plus10HealthPrefab, position);
+                statsController.ChangeStats(StatsController.Stats.Thirst, 10);
+                TextPopup(plus10ThirstPrefab, position);
             }
         }
 
-        private void LoseHealth()
+        private void LoseThirst()
         {
-            statsController.ChangeStats(StatsController.Stats.Health, -10);
-            TextPopup(minus10HealthPrefab, transform.position);
+            statsController.ChangeStats(StatsController.Stats.Thirst, -10);
+            TextPopup(minus10ThirstPrefab, transform.position);
         }
 
         private IEnumerator ShowNightBonus(Vector3 position)
@@ -117,7 +117,7 @@ namespace HearthMiniGame
 
             if (GhostCounter == 0)
             {
-                hearthMiniGame.StopHearthMiniGame();
+                thirsMiniGame.StopThirsMiniGame();
             }
             Destroy(gameObject);
         }
