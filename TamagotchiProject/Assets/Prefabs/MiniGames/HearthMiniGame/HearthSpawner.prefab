@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hearthPrefab: {fileID: 1571417811171568, guid: 8ca5577fd61e6a04ca0bdbabca2972a3,
     type: 3}
-  preventNightmaresPrefab: {fileID: 1424227665193626, guid: 46fd4066fb7c548e5902da9a13362992,
+  preventNightmaresPrefab: {fileID: 1424227665193626, guid: 7fdd3206a0921e74285cfb88d3268e7b,
     type: 3}

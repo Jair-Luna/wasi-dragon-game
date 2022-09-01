@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thirsPrefab: {fileID: 1571417811171568, guid: 3513017646133df4bbc7051a57023efc,
     type: 3}
-  preventNightmaresPrefab: {fileID: 1424227665193626, guid: 46fd4066fb7c548e5902da9a13362992,
+  preventNightmaresPrefab: {fileID: 1424227665193626, guid: 830c1f38a35232b42877dc47d02f4325,
     type: 3}

@@ -7,14 +7,19 @@ namespace Controllers
     {
         public static bool GamePaused;
         public static bool DoubleTempo;
+        public static bool Help;
+        
 
         [SerializeField] private GameObject pauseMenuGameObject;
+
+        [SerializeField] private GameObject helpMenuGameObject;
 
         [SerializeField] private GameObject pieMenuGameObject;
 
         [SerializeField] private GameObject toolTipGameObject;
 
         private Transform[] pauseMenuElements;
+        private Transform[] helpMenuElements;
         private PieMenu pieMenu;
         private Animator toolTipAnimator;
 
@@ -23,6 +28,7 @@ namespace Controllers
             pieMenu = pieMenuGameObject.GetComponent<PieMenu>();
             toolTipAnimator = toolTipGameObject.GetComponent<Animator>();
             pauseMenuElements = pauseMenuGameObject.GetComponentsInChildren<Transform>();
+            helpMenuElements =  helpMenuGameObject.GetComponentsInChildren<Transform>();
         }
 
         private void Update()
@@ -54,8 +60,36 @@ namespace Controllers
 
             GamePaused = !GamePaused;
         }
+        
+        public void HelpPause()
+        {
+            ResetPauseScreen();
+
+            if (!GamePaused)
+            {
+                Pause();
+            }
+            else
+            {
+                UnPause();
+            }
+
+            GamePaused = !GamePaused;
+        }
 
         private void Pause()
+        {
+            Time.timeScale = 0f;
+            pauseMenuGameObject.SetActive(true);
+            pieMenu.HidePieMenu();
+
+            if (!toolTipAnimator.GetCurrentAnimatorStateInfo(0).IsName("ToolTipFade"))
+            {
+                toolTipAnimator.Play("ToolTipQuickFade");
+            }
+        }
+
+        private void HelpPause1()
         {
             Time.timeScale = 0f;
             pauseMenuGameObject.SetActive(true);

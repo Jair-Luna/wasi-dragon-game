@@ -24,5 +24,14 @@ namespace UI
         {
             buttonAnimator.Play(GameController.DoubleTempo ? "HudButtonDoubleTempo" : "HudButtonEnter");
         }
+
+        public void HelpButtonAnimation(string animationName)
+        {
+            if (!buttonAnimator.GetCurrentAnimatorStateInfo(0).IsName("HudButtonDoubleTempo"))
+            {
+                buttonAnimator.Play(animationName);
+            }
+        }
+        
     }
 }
